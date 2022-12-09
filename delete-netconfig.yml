@@ -30,8 +30,6 @@
 
     - name: Delete IOS system properties onto device
       ios_system:
-        domain_name: "{{network_domain_name | default(omit, True) }}"
-        domain_search: "{{network_domain_search | default(omit, True)}}"
         lookup_source: "{{network_lookup_source | default(omit, True) }}"
         name_servers: "{{network_name_servers | default(omit, True) }}"
         state: absent
@@ -39,8 +37,6 @@
 
     - name: Delete EOS system properties onto device
       eos_system:
-        domain_name: "{{network_domain_name | default(omit, True) }}"
-        domain_search: "{{network_domain_search | default(omit, True)}}"
         lookup_source: "{{network_lookup_source | default(omit, True) }}"
         name_servers: "{{network_name_servers | default(omit, True) }}"
         state: absent
