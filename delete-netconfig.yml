@@ -63,7 +63,7 @@
         privilege: "{{network_privilege | default(omit, True) }}"
         configured_password: "{{network_configured_password | default(omit, True) }}"
         state: absent
-      when: ('ios' in ansible_network_os)
+      when: ('ios' in ansible_network_os) and network_name is defined
       
     - name: Remove management user EOS
       eos_user:
@@ -72,7 +72,7 @@
         privilege: "{{network_privilege | default(omit, True) }}"
         configured_password: "{{network_configured_password | default(omit, True) }}"
         state: absent
-      when: ('eos' in ansible_network_os)      
+      when: ('eos' in ansible_network_os) and network_name is defined   
         
     - name: Add banner IOSXE
       ios_banner:
