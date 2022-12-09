@@ -8,14 +8,14 @@
   
     - name: Delete VIRTUAL SERVER
       f5networks.f5_modules.bigip_virtual_server:
+        state: absent
+        name: "vip"
         provider:
-          state: absent
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
           password: "{{ansible_password}}"
           server_port: 8443
           validate_certs: false
-        name: "vip"
         destination: "{{private_ip}}"
         port: "443"
         enabled_vlans: "all"
@@ -25,8 +25,8 @@
         
     - name: Delete POOL MEMBERS
       f5networks.f5_modules.bigip_pool_member:
+        state: absent
         provider:
-          state: absent
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
           password: "{{ansible_password}}"
@@ -41,22 +41,22 @@
       
     - name: Delete POOL
       f5networks.f5_modules.bigip_pool:
+        state: absent
+        name: "http_pool"
         provider:
-          state: absent
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
           password: "{{ansible_password}}"
           server_port: 8443
           validate_certs: false
-        name: "http_pool"
         lb_method: "round-robin"
         monitors: "/Common/http"
         monitor_type: "and_list"
         
     - name: Delete NODES
       f5networks.f5_modules.bigip_node:
+        state: absent
         provider:
-          state: absent
           server: "{{private_ip}}"
           user: "{{ansible_user}}"
           password: "{{ansible_password}}"
