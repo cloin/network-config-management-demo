@@ -74,16 +74,16 @@
         state: absent
       when: ('eos' in ansible_network_os) and network_name is defined   
         
-    - name: Add banner IOSXE
+    - name: Delete banner IOSXE
       ios_banner:
         text: "{{ network_banner }}"
         banner: "{{ banner_type }}"
-        state: deleted
+        state: absent
       when: ('ios' in ansible_network_os) and network_banner is defined
       
-    - name: Add banner EOS
+    - name: Delete banner EOS
       eos_banner:
         text: "{{ network_banner }}"
         banner: "{{ banner_type }}"
-        state: deleted
+        state: absent
       when: ('eos' in ansible_network_os) and network_banner is defined 
