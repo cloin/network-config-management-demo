@@ -49,13 +49,13 @@
     - name: Remove NTP IOSXE
       ios_config:
         lines: "ntp server {{ntp_server}}"
-        state: absent
+        state: defaults
       when: ('ios' in ansible_network_os) and ntp_server is defined
 
     - name: Remove NTP EOS
       eos_config:
         lines: "ntp server {{ntp_server}}"
-        state: absent
+        state: defaults
       when: ('eos' in ansible_network_os) and ntp_server is defined
 
     - name: Remove management user IOSXE
