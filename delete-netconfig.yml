@@ -2,7 +2,6 @@
 - name: Configure ACLS
   hosts: routers
   gather_facts: no
-  state: delete
   
   vars_files:
     - acl_var.yml
