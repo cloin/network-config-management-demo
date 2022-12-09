@@ -4,9 +4,9 @@ acl:
     - name: std_acl
       acl_type: standard
       aces:
-      - grant: permit
+      - grant: deny
         source:
-          address: 192.168.1.201
+          address: 192.168.1.200
       - grant: deny
         source:
           address: 192.168.2.0
