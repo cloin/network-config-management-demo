@@ -4,7 +4,7 @@
   gather_facts: no
   
   vars_files:
-    - aclios_var.yml
+    - acl_var.yml
     
   tasks:
     - name: Configure ACLs IOSXE
