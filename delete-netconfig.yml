@@ -35,7 +35,7 @@
         hostname: "{{network_hostname | default(omit, True)}}"
         lookup_source: "{{network_lookup_source | default(omit, True) }}"
         name_servers: "{{network_name_servers | default(omit, True) }}"
-        state: deleted
+        state: absent
       when: ('ios' in ansible_network_os) or network_domain_name is defined or network_domain_search is defined or network_hostname is defined or network_lookup_source is defined or network_name_servers is defined
 
     - name: Load EOS system properties onto device
@@ -45,7 +45,7 @@
         hostname: "{{network_hostname | default(omit, True)}}"
         lookup_source: "{{network_lookup_source | default(omit, True) }}"
         name_servers: "{{network_name_servers | default(omit, True) }}"
-        state: deleted
+        state: absent
       when: ('eos' in ansible_network_os)
 
     - assert:
@@ -57,13 +57,13 @@
       ios_config:
         lines: "ntp server {{ntp_server}}"
         state: deleted
-      when: ('ios' in ansible_network_os)
+      when: ('ios' in ansible_network_os) and ntp_server is defined
 
     - name: Configure NTP EOS
       eos_config:
         lines: "ntp server {{ntp_server}}"
         state: deleted
-      when: ('eos' in ansible_network_os)
+      when: ('eos' in ansible_network_os) and ntp_server is defined
 
     - name: Configure management user IOSXE
       ios_user:
@@ -88,11 +88,11 @@
         text: "{{ network_banner }}"
         banner: "{{ banner_type }}"
         state: deleted
-      when: ('ios' in ansible_network_os)
+      when: ('ios' in ansible_network_os) and network_banner is defined
       
     - name: Add banner EOS
       eos_banner:
         text: "{{ network_banner }}"
         banner: "{{ banner_type }}"
         state: deleted
-      when: ('eos' in ansible_network_os)   
+      when: ('eos' in ansible_network_os) and network_banner is defined 
