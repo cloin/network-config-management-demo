@@ -34,8 +34,8 @@
         domain_search: "{{network_domain_search | default(omit, True)}}"
         lookup_source: "{{network_lookup_source | default(omit, True) }}"
         name_servers: "{{network_name_servers | default(omit, True) }}"
-        state: absent
-      when: ('ios' in ansible_network_os) or network_domain_name is defined or network_domain_search is defined or network_hostname is defined or network_lookup_source is defined or network_name_servers is defined
+        state: defaults
+      when: ('ios' in ansible_network_os) or network_domain_name is defined or network_domain_search is is defined or network_lookup_source is defined or network_name_servers is defined
 
     - name: Load EOS system properties onto device
       eos_system:
@@ -43,13 +43,8 @@
         domain_search: "{{network_domain_search | default(omit, True)}}"
         lookup_source: "{{network_lookup_source | default(omit, True) }}"
         name_servers: "{{network_name_servers | default(omit, True) }}"
-        state: absent
+        state: defaults
       when: ('eos' in ansible_network_os)
-
-    - assert:
-        that:
-          - "ntp_server | ipaddr"
-        msg: "'ntp_server' must be a valid IPv4 address"
 
     - name: Configure NTP IOSXE
       ios_config:
