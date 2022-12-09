@@ -13,19 +13,19 @@
     - name: Configure ACLs IOSXE
       ios_acls:
         config: "{{acl}}"
-        state: delete
+        state: deleted
       when: ('ios' in ansible_network_os) 
 
     - name: Configure Loopback interface IOSXE
       ios_l3_interfaces:
         config: "{{l3_interface}}"
-        state: delete
+        state: deleted
       when: ('ios' in ansible_network_os)
       
     - name: Configure Loopback interface EOS
       eos_l3_interfaces:
         config: "{{l3_interface}}"
-        state: delete
+        state: deleted
       when: ('eos' in ansible_network_os)
 
     - name: Load IOS system properties onto device
@@ -35,6 +35,7 @@
         hostname: "{{network_hostname | default(omit, True)}}"
         lookup_source: "{{network_lookup_source | default(omit, True) }}"
         name_servers: "{{network_name_servers | default(omit, True) }}"
+        state: deleted
       when: ('ios' in ansible_network_os)
 
     - name: Load EOS system properties onto device
@@ -44,6 +45,7 @@
         hostname: "{{network_hostname | default(omit, True)}}"
         lookup_source: "{{network_lookup_source | default(omit, True) }}"
         name_servers: "{{network_name_servers | default(omit, True) }}"
+        state: deleted
       when: ('eos' in ansible_network_os)
 
     - assert:
@@ -54,11 +56,13 @@
     - name: Configure NTP IOSXE
       ios_config:
         lines: "ntp server {{ntp_server}}"
+        state: deleted
       when: ('ios' in ansible_network_os)
 
     - name: Configure NTP EOS
       eos_config:
         lines: "ntp server {{ntp_server}}"
+        state: deleted
       when: ('eos' in ansible_network_os)
 
     - name: Configure management user IOSXE
@@ -67,6 +71,7 @@
         ssh_key: "{{network_key | default(omit, True) }}"
         privilege: "{{network_privilege | default(omit, True) }}"
         configured_password: "{{network_configured_password | default(omit, True) }}"
+        state: deleted
       when: ('ios' in ansible_network_os)
       
     - name: Configure management user EOS
@@ -75,16 +80,19 @@
         ssh_key: "{{network_key | default(omit, True) }}"
         privilege: "{{network_privilege | default(omit, True) }}"
         configured_password: "{{network_configured_password | default(omit, True) }}"
+        state: deleted
       when: ('eos' in ansible_network_os)      
         
     - name: Add banner IOSXE
       ios_banner:
         text: "{{ network_banner }}"
         banner: "{{ banner_type }}"
+        state: deleted
       when: ('ios' in ansible_network_os)
       
     - name: Add banner EOS
       eos_banner:
         text: "{{ network_banner }}"
         banner: "{{ banner_type }}"
+        state: deleted
       when: ('eos' in ansible_network_os)   
