@@ -20,13 +20,13 @@
       ios_l3_interfaces:
         config: "{{l3_interface}}"
         state: deleted
-      when: ('ios' in ansible_network_os)
+      when: ('ios' in ansible_network_os) and ({{l3_interface}} is defined)
       
     - name: Configure Loopback interface EOS
       eos_l3_interfaces:
         config: "{{l3_interface}}"
         state: deleted
-      when: ('eos' in ansible_network_os)
+      when: ('eos' in ansible_network_os) and (l3_interface is defined)
 
     - name: Load IOS system properties onto device
       ios_system:
